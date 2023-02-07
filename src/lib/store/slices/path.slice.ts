@@ -21,7 +21,5 @@ export const pathSlice = createSlice({
   },
 })
 
-// Action creators are generated for each case reducer function
 export const { add } = pathSlice.actions
-
 export default persistReducer(persistConfig, pathSlice.reducer)

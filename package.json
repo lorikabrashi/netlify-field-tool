@@ -1,6 +1,6 @@
 {
-  "name": "netlify-field-tool",
-  "version": "0.1.0",
+  "name": "netlify-fields-tool",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.2",
@@ -24,10 +24,9 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "install-complete": "(cd src/server && npm i) && npm i",
+    "start": "(cd src/server && npm start) & react-scripts start",
+    "dev": "react-scripts start"
   },
   "eslintConfig": {
     "extends": [
