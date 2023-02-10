@@ -1,12 +1,34 @@
 $text-color: #f0f6fc;
 $bg-color: #0d1117;
-$primary: #00C6B9;
-$secondary: #D3FBD8;
+$primary: #00c6b9;
+$secondary: #d3fbd8;
 
 $spacer: 10px;
 $body-bg: $bg-color;
 $body-color: $text-color;
+
+$blue: #007bff;
+$indigo: #6610f2;
+$purple: #6f42c1;
+$pink: #e83e8c;
+$red: #dc3545;
+$orange: #fd7e14;
+$yellow: #ffc107;
+$green: #28a745;
+$teal: #20c997;
+$cyan: #17a2b8;
+$white: #ffffff;
+$gray-100: #f8f9fa;
+$gray-600: #868e96;
+$gray-800: #343a40;
+
 $theme-colors: (
   primary: $primary,
   secondary: $secondary,
+  success: $green,
+  info: $cyan,
+  warning: $yellow,
+  danger: $red,
+  light: $gray-100,
+  dark: $gray-800,
 );

@@ -1,6 +1,7 @@
-@import './variables.scss';
-@import '~bootstrap/scss/bootstrap';
+@import './_variables.scss';
 @import './modal.scss';
+
+@import '~bootstrap/scss/bootstrap';
 
 .btn-primary {
   @include button-variant(
@@ -28,3 +29,4 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
+

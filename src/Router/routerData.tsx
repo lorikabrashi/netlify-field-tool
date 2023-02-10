@@ -1,4 +1,5 @@
 import Root from '../pages/Root'
+import SingleSite from '../pages/SingleSite'
 
 const routerData = [
   {
@@ -6,8 +7,8 @@ const routerData = [
     index: true,
   },
   {
-    elem: <h1>test</h1>,
-    path: '/test',
+    elem: <SingleSite />,
+    path: '/site/:slug',
   },
 ]
 

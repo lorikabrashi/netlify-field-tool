@@ -7,6 +7,7 @@ const initialState: { value: IModal } = {
     state: false,
     title: '',
     content: React.createElement(React.Fragment),
+    size: ''
   },
 }
 

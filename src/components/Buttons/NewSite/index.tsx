@@ -1,1 +1,1 @@
-export { default } from './NewSite'
+export { default } from './NewSite.button'

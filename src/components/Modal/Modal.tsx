@@ -12,9 +12,9 @@ const GlobalModal: React.FC<Props> = () => {
   const handleCloseModal = () => {
     dispatch(closeModal())
   }
-  
+
   return (
-    <Modal show={modalValues.state} onHide={handleCloseModal}>
+    <Modal className={modalValues.size} show={modalValues.state} onHide={handleCloseModal}>
       <Modal.Header closeButton closeVariant="white">
         <Modal.Title>{modalValues.title}</Modal.Title>
       </Modal.Header>

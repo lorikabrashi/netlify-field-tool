@@ -1,9 +1,7 @@
 import '../services/env'
 import http from 'http'
 import app from '../app'
-import { NodeSystemError } from '../../shared/types'
 import { serverPort } from '../../shared/constants'
-
 
 const server = http.createServer(app)
 
@@ -15,7 +13,7 @@ server.on('listening', () => {
   console.log('listening on ' + bind)
 })
 
-server.on('error', (error: NodeSystemError) => {
+server.on('error', (error: NodeJS.ErrnoException) => {
   if (error.syscall !== 'listen') {
     throw error
   }
