@@ -2,8 +2,10 @@ import { FormEvent, useState } from 'react'
 import { Alert, Button, Col, Container, Form, Row } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import { api } from '../../../lib/api'
 import { RootState } from '../../../lib/store'
 import { addSite } from '../../../lib/store/slices/path.slice'
+import { ISiteData } from '../../../shared/types'
 
 interface Props {
   onComplete: () => void
@@ -40,15 +42,17 @@ const NewSite: React.FC<Props> = ({ onComplete }) => {
       return
     }
 
-    // TODO: call backend to make folder structure for this site
+    const siteData: ISiteData = {
+      name: name,
+      slug: slug,
+      path: path,
+    }
 
-    dispatch(
-      addSite({
-        name: name,
-        slug: slug,
-        path: path,
-      })
-    )
+   
+    const response = await api.addSite(siteData)
+    console.log(response)
+
+    dispatch(addSite(siteData))
     navigate(`/site/${slug}`)
     onComplete()
   }

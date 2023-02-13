@@ -1,3 +1,9 @@
+export interface ApiError {
+  statusCode?: number | string
+  message: string
+  name: string
+}
+
 export interface IModal {
   state: boolean
   title: string
@@ -5,8 +11,9 @@ export interface IModal {
   size?: string
 }
 
-export interface IPath {
+export interface ISiteData {
   name: string
   slug: string
   path: string
 }
+

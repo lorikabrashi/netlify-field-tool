@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import { RootState } from '../../../lib/store'
 import { closeModal, openModal } from '../../../lib/store/slices/modal.slice'
 import { removeSite } from '../../../lib/store/slices/path.slice'
-import { IPath } from '../../../shared/types'
+import { ISiteData } from '../../../shared/types'
 import DeleteAlert from '../../ConfirmAlerts/Delete.alert'
 
 const NoDataRow: React.FC = () => {
@@ -21,7 +21,7 @@ const NoDataRow: React.FC = () => {
 }
 
 interface SiteRowsProps {
-  data: IPath[]
+  data: ISiteData[]
 }
 const SitesRows: React.FC<SiteRowsProps> = ({ data }) => {
   const dispatch = useDispatch()

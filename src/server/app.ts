@@ -4,9 +4,7 @@ import morgan from 'morgan'
 
 import exposedRouter from './routes/exposed.routes'
 import cors from 'cors'
-
-
-// import { errorMiddleware } from './middleware/error.middleware'
+import { errorMiddleware } from './middleware/error.middleware'
 
 const app: Express = express()
 
@@ -18,6 +16,6 @@ app.use(cors())
 
 app.use('/', exposedRouter)
 
-// app.use(errorMiddleware)
+app.use(errorMiddleware)
 
 export default app

@@ -3,14 +3,14 @@ import persistReducer from 'redux-persist/es/persistReducer'
 
 import storage from 'redux-persist/lib/storage'
 
-import { IPath } from '../../../shared/types'
+import { ISiteData } from '../../../shared/types'
 
 const persistConfig = {
   key: 'netlify-fields-tool-paths',
   storage,
 }
 
-const initialState: { value: IPath[] } = {
+const initialState: { value: ISiteData[] } = {
   value: [],
 }
 
@@ -18,7 +18,7 @@ export const pathSlice = createSlice({
   name: 'path',
   initialState,
   reducers: {
-    addSite: (state, action: PayloadAction<IPath>) => {
+    addSite: (state, action: PayloadAction<ISiteData>) => {
       state.value = [...state.value, action.payload]
     },
     removeSite: (state, action: PayloadAction<string>) => {
@@ -32,3 +32,5 @@ export const pathSlice = createSlice({
 
 export const { addSite, removeSite } = pathSlice.actions
 export default persistReducer(persistConfig, pathSlice.reducer)
+
+
