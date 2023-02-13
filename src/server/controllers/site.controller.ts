@@ -1,3 +1,4 @@
+import { ISiteData } from '../../shared/types'
 import { HelperService } from '../services/helper.service'
 import { SiteService } from '../services/site.service'
 
@@ -10,7 +11,12 @@ export class SiteController {
     this.helperService = new HelperService()
   }
 
-  
+  createSite(siteData: ISiteData) {
+    
+    //
+
+
+  }
 }
 
 const siteController = new SiteController()

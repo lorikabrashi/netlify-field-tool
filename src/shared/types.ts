@@ -1,3 +1,5 @@
+import { ApiStatus } from "./constants"
+
 export interface ApiError {
   statusCode?: number | string
   message: string
@@ -17,3 +19,11 @@ export interface ISiteData {
   path: string
 }
 
+
+export interface ApiResponse {
+  status: ApiStatus
+}
+
+export interface CreateSiteResponse extends ApiResponse {
+  results : string
+}

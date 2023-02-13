@@ -1,3 +1,4 @@
+import { AxiosError } from 'axios'
 import { FormEvent, useState } from 'react'
 import { Alert, Button, Col, Container, Form, Row } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
@@ -5,7 +6,8 @@ import { useNavigate } from 'react-router-dom'
 import { api } from '../../../lib/api'
 import { RootState } from '../../../lib/store'
 import { addSite } from '../../../lib/store/slices/path.slice'
-import { ISiteData } from '../../../shared/types'
+import { ApiStatus } from '../../../shared/constants'
+import { ApiError, ISiteData } from '../../../shared/types'
 
 interface Props {
   onComplete: () => void
@@ -48,13 +50,15 @@ const NewSite: React.FC<Props> = ({ onComplete }) => {
       path: path,
     }
 
-   
-    const response = await api.addSite(siteData)
-    console.log(response)
-
-    dispatch(addSite(siteData))
-    navigate(`/site/${slug}`)
-    onComplete()
+    try {
+      await api.createSite(siteData)
+      dispatch(addSite(siteData))
+      navigate(`/site/${slug}`)
+      onComplete()
+    } catch (err: unknown) {
+      const errorResponse = (err as AxiosError).response?.data as ApiError
+      setErrorMessage(errorResponse.message)
+    }
   }
 
   const handleSlugFocus = () => {

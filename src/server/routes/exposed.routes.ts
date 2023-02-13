@@ -1,16 +1,15 @@
 import { Request, Response, Router } from 'express'
 import { ISiteData } from '../../shared/types'
+import siteController from '../controllers/site.controller'
 import { exceptionHandler } from '../services/exceptionHandler'
 const router = Router()
 
-router.get('/test', (_req: Request, res: Response) => {
-  res.json('ok')
-})
 
 router.post(
   '/add-site',
-  exceptionHandler((req: Request<{}, {}, ISiteData>, res: Response) => {
-    console.log(req.body)
+  exceptionHandler(async (req: Request<{}, {}, ISiteData>, res: Response) => {
+    const result = siteController.createSite(req.body)
+    res.json(siteController.helperService.formatResponse(result))
   })
 )
 

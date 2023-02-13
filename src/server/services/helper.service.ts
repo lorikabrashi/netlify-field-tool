@@ -1,9 +1,10 @@
 import { ApiError } from '../../shared/types'
+import { ApiStatus } from '../../shared/constants'
 
 export class HelperService {
   public static formatError(err: ApiError) {
     return {
-      confirmation: 'Fail',
+      confirmation: ApiStatus.fail,
       statusCode: err.statusCode || 500,
       name: err.name,
       message: err.message,
@@ -12,7 +13,7 @@ export class HelperService {
 
   public formatResponse(results: any) {
     return {
-      confirmation: 'Success',
+      confirmation: ApiStatus.success,
       results,
     }
   }

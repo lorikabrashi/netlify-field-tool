@@ -6,7 +6,7 @@ export class ApiError extends Error {
   constructor() {
     super()
     this.message = 'Something went wrong!'
-    this.statusCode = 404
+    this.statusCode = 500
     this.name = 'Api Error'
   }
 }

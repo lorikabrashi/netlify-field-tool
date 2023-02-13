@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from 'axios'
 import { apiUrl } from '../../shared/constants'
-import { ISiteData } from '../../shared/types'
+import { CreateSiteResponse, ISiteData } from '../../shared/types'
 export type AxiosConfig = { baseURL: string }
 
 const axiosObj: AxiosConfig = {
@@ -19,6 +19,5 @@ const requests = {
 }
 
 export const api = {
-  test: (): Promise<any> => requests.get('/test'),
-  addSite: (data: ISiteData) => requests.post('/add-site', data)
+  createSite: (data: ISiteData): Promise<CreateSiteResponse> => requests.post('/add-site', data)
 }
