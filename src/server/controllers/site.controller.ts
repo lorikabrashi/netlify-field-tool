@@ -13,9 +13,16 @@ export class SiteController {
 
   createSite(siteData: ISiteData) {
     
+    // Logic
+    /*
+      1. get config yml from site (site data path)
+      2. create a folder for this site using slug on DATA folder
+      3. read config yml and create a replica as config.json in website folder in DATA  
+    */
+
+  }
+  deleteSite () {
     //
-
-
   }
 }
 
