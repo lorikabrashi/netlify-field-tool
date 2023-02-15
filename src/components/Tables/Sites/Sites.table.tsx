@@ -1,11 +1,13 @@
+import { AxiosError } from 'axios'
 import React from 'react'
 import { Button, Table } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { api } from '../../../lib/api'
 import { RootState } from '../../../lib/store'
 import { closeModal, openModal } from '../../../lib/store/slices/modal.slice'
-import { removeSite } from '../../../lib/store/slices/path.slice'
-import { ISiteData } from '../../../shared/types'
+import { removeSite } from '../../../lib/store/slices/sites.slice'
+import { IApiError, ISiteData } from '../../../shared/types'
 import DeleteAlert from '../../ConfirmAlerts/Delete.alert'
 
 const NoDataRow: React.FC = () => {
@@ -26,9 +28,15 @@ interface SiteRowsProps {
 const SitesRows: React.FC<SiteRowsProps> = ({ data }) => {
   const dispatch = useDispatch()
 
-  const handleDelete = (slug: string) => {
-    dispatch(removeSite(slug))
-    dispatch(closeModal())
+  const handleDelete = async (slug: string) => {
+    try {
+      await api.site.delete({ slug })
+      dispatch(removeSite(slug))
+      dispatch(closeModal())
+    } catch (err: unknown) {
+      const errorResponse = (err as AxiosError).response?.data as IApiError
+      console.error(errorResponse)
+    }
   }
 
   const confirmDelete = (slug: string, name: string) => {
@@ -72,7 +80,7 @@ const TableHeader: React.FC = () => {
 }
 
 const SitesTable: React.FC = () => {
-  const sites = useSelector((state: RootState) => state.path.value)
+  const sites = useSelector((state: RootState) => state.sites.value)
   return (
     <Table variant="dark" striped bordered hover>
       <TableHeader />

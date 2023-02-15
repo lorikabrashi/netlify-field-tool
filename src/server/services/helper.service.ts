@@ -1,8 +1,8 @@
-import { ApiError } from '../../shared/types'
+import { IApiError } from '../../shared/types'
 import { ApiStatus } from '../../shared/constants'
 
 export class HelperService {
-  public static formatError(err: ApiError) {
+  public static formatError(err: IApiError) {
     return {
       confirmation: ApiStatus.fail,
       statusCode: err.statusCode || 500,

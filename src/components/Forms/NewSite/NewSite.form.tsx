@@ -5,9 +5,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { api } from '../../../lib/api'
 import { RootState } from '../../../lib/store'
-import { addSite } from '../../../lib/store/slices/path.slice'
-import { ApiStatus } from '../../../shared/constants'
-import { ApiError, ISiteData } from '../../../shared/types'
+import { addSite } from '../../../lib/store/slices/sites.slice'
+import { IApiError, ISiteData } from '../../../shared/types'
 
 interface Props {
   onComplete: () => void
@@ -20,7 +19,7 @@ const NewSite: React.FC<Props> = ({ onComplete }) => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
   const dispatch = useDispatch()
-  const sites = useSelector((state: RootState) => state.path.value)
+  const sites = useSelector((state: RootState) => state.sites.value)
   const navigate = useNavigate()
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -51,12 +50,12 @@ const NewSite: React.FC<Props> = ({ onComplete }) => {
     }
 
     try {
-      await api.createSite(siteData)
+      await api.site.create(siteData)
       dispatch(addSite(siteData))
       navigate(`/site/${slug}`)
       onComplete()
     } catch (err: unknown) {
-      const errorResponse = (err as AxiosError).response?.data as ApiError
+      const errorResponse = (err as AxiosError).response?.data as IApiError
       setErrorMessage(errorResponse.message)
     }
   }

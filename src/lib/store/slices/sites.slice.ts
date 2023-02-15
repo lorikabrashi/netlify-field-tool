@@ -6,7 +6,7 @@ import storage from 'redux-persist/lib/storage'
 import { ISiteData } from '../../../shared/types'
 
 const persistConfig = {
-  key: 'netlify-fields-tool-paths',
+  key: 'netlify-fields-tool-sites',
   storage,
 }
 
@@ -14,8 +14,8 @@ const initialState: { value: ISiteData[] } = {
   value: [],
 }
 
-export const pathSlice = createSlice({
-  name: 'path',
+export const siteSlice = createSlice({
+  name: 'site',
   initialState,
   reducers: {
     addSite: (state, action: PayloadAction<ISiteData>) => {
@@ -30,7 +30,7 @@ export const pathSlice = createSlice({
   },
 })
 
-export const { addSite, removeSite } = pathSlice.actions
-export default persistReducer(persistConfig, pathSlice.reducer)
+export const { addSite, removeSite } = siteSlice.actions
+export default persistReducer(persistConfig, siteSlice.reducer)
 
 

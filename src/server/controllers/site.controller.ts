@@ -1,28 +1,33 @@
 import { ISiteData } from '../../shared/types'
 import { HelperService } from '../services/helper.service'
-import { SiteService } from '../services/site.service'
+import { FileSystemService } from '../services/fileSystem.service'
 
 export class SiteController {
   helperService: HelperService
-  private siteService: SiteService
+  private fileSystemService: FileSystemService
 
   constructor() {
-    this.siteService = new SiteService()
+    this.fileSystemService = new FileSystemService()
     this.helperService = new HelperService()
   }
 
-  createSite(siteData: ISiteData) {
-    
-    // Logic
-    /*
-      1. get config yml from site (site data path)
-      2. create a folder for this site using slug on DATA folder
-      3. read config yml and create a replica as config.json in website folder in DATA  
-    */
+  async createSite(siteData: ISiteData) {
+    this.fileSystemService.createDataStructureForSite(siteData.slug)
+    const netlifyCmsConfigData = await this.fileSystemService.readNetlifyCmsConfigFile(siteData.path)
 
+    const { collections, ...options } = netlifyCmsConfigData
+
+    collections.forEach((elem) => {
+      this.fileSystemService.writeJsonCollection(elem, siteData.slug, elem.name)
+    })
+    this.fileSystemService.writeJsonOptions(options, siteData.slug)
+
+    return true
   }
-  deleteSite () {
-    //
+
+  deleteSite(slug: string) {
+    this.fileSystemService.deleteDataStructureForSite(slug)
+    return true
   }
 }
 
