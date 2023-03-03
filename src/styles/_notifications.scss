@@ -1,0 +1,10 @@
+.notification-wrapper {
+  position: fixed;
+  right: 10px;
+  width: 300px;
+  max-height: 100vh;
+  top: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  z-index: 1; 
+}

@@ -1,3 +1,4 @@
+import { ReactElement } from 'react'
 import { ApiStatus } from './constants'
 
 export interface IApiError {
@@ -19,12 +20,24 @@ export interface ISiteData {
   path: string
 }
 
+export interface IDeleteCollectionData {
+  name: string
+  slug: string
+}
+
 export interface IApiResponse {
-  status: ApiStatus
+  confirmation: ApiStatus
 }
 
 export interface ISiteResponse extends IApiResponse {
   results: string
+}
+
+export interface ISiteOptionsResponse extends IApiResponse {
+  results: INetlifyOptions
+}
+export interface ISiteCollectionResponse extends IApiResponse {
+  results: INetlifyCmsCollection[]
 }
 
 type PublishMode = 'simple' | 'editorial_workflow'
@@ -147,3 +160,5 @@ export interface INetlifyCmsConfig {
 
   collections: INetlifyCmsCollection[]
 }
+
+export type INetlifyOptions = Omit<INetlifyCmsConfig, 'collections'>

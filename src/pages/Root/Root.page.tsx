@@ -1,6 +1,6 @@
 import { Col, Row } from 'react-bootstrap'
 import NewSiteButton from '../../components/Buttons/NewSite'
-import SitesTable from '../../components/Tables/Sites'
+import SitesTable from '../../components/Tables/Sites.table'
 
 interface Props {}
 
@@ -11,7 +11,7 @@ const Root: React.FC<Props> = () => {
         <NewSiteButton />
       </Col>
       <Col sm={12}>
-       <SitesTable />
+        <SitesTable />
       </Col>
     </Row>
   )

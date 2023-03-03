@@ -1,0 +1,18 @@
+.collection-list {
+  display: flex;
+  justify-content: space-between;
+  .collection-info {
+    .collection-label,
+    .collection-name {
+      b {
+        margin-right: 5px;
+      }
+    }
+  }
+  .actions {
+    a {
+      margin-right: 10px;
+    }
+  }
+
+}

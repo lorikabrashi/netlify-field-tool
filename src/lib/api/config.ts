@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from 'axios'
 import { apiUrl } from '../../shared/constants'
-import { ISiteResponse, ISiteData } from '../../shared/types'
+
 export type AxiosConfig = { baseURL: string }
 
 const axiosObj: AxiosConfig = {
@@ -18,9 +18,4 @@ const requests = {
   delete: async (url: string, body?: {}) => instance.delete(url, { data: body }).then(responseBody),
 }
 
-export const api = {
-  site: {
-    create: (data: ISiteData): Promise<ISiteResponse> => requests.post('/site', data),
-    delete: (data: { slug: string }): Promise<ISiteResponse> => requests.delete('/site', data),
-  },
-}
+export default requests

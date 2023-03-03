@@ -26,8 +26,12 @@ export class SiteController {
   }
 
   deleteSite(slug: string) {
-    this.fileSystemService.deleteDataStructureForSite(slug)
+    this.fileSystemService.deleteDataStructureForSite(slug, false)
     return true
+  }
+
+  getOptions(slug: string) {
+    return this.fileSystemService.getOptions(slug)
   }
 }
 

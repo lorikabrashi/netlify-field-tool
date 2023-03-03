@@ -3,12 +3,12 @@ import React from 'react'
 import { Button, Table } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { api } from '../../../lib/api'
-import { RootState } from '../../../lib/store'
-import { closeModal, openModal } from '../../../lib/store/slices/modal.slice'
-import { removeSite } from '../../../lib/store/slices/sites.slice'
-import { IApiError, ISiteData } from '../../../shared/types'
-import DeleteAlert from '../../ConfirmAlerts/Delete.alert'
+import { api } from '../../lib/api/v1'
+import { RootState } from '../../lib/store'
+import { closeModal, openModal } from '../../lib/store/slices/modal.slice'
+import { removeSite } from '../../lib/store/slices/sites.slice'
+import { IApiError, ISiteData } from '../../shared/types'
+import DeleteAlert from '../ConfirmAlerts/Delete.alert'
 
 const NoDataRow: React.FC = () => {
   return (
@@ -54,7 +54,7 @@ const SitesRows: React.FC<SiteRowsProps> = ({ data }) => {
         <tr key={i}>
           <td>{++i}</td>
           <td>
-            <Link to={`/site/${elem.slug}`}>{elem.name}</Link>
+            <Link to={`/site-overview/${elem.slug}`}>{elem.name}</Link>
           </td>
           <td>
             <Button size="sm" onClick={() => confirmDelete(elem.slug, elem.name)} variant={'danger'}>

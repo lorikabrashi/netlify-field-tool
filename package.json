@@ -27,7 +27,8 @@
   "scripts": {
     "install-complete": "(cd src/server && npm i) && npm i",
     "start": "(cd src/server && npm start) & react-scripts start",
-    "dev": "react-scripts start"
+    "dev": "react-scripts start",
+    "server": "cd src/server && npm run dev"
   },
   "eslintConfig": {
     "extends": [

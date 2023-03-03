@@ -20,4 +20,14 @@ router.delete(
   })
 )
 
+router.get(
+  '/options',
+  exceptionHandler(async (req: Request<{}, {}, {}, { slug: string }>, res: Response) => {
+    const result = siteController.getOptions(req.query.slug)
+    res.json(siteController.helperService.formatResponse(result))
+  })
+)
+
+
+
 export default router
