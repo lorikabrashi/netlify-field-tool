@@ -1,7 +1,7 @@
 import { Button } from 'react-bootstrap'
 import { useDispatch } from 'react-redux'
 import { closeModal, openModal } from '../../../lib/store/slices/modal.slice'
-import NewSiteForm from '../../Forms/NewSite'
+import NewSiteForm from '../../Forms/NewSite.form'
 
 const NewSiteButton: React.FC = () => {
   const dispatch = useDispatch()

@@ -1,4 +1,3 @@
-import { ReactElement } from 'react'
 import { ApiStatus } from './constants'
 
 export interface IApiError {
@@ -20,9 +19,21 @@ export interface ISiteData {
   path: string
 }
 
+
+export interface ISingleCollectionData {
+  slug: string
+  collection: string
+}
+
 export interface IDeleteCollectionData {
   name: string
   slug: string
+}
+
+export interface ICreateCollectionData {
+  slug: string
+  name: string
+  label: string
 }
 
 export interface IApiResponse {
@@ -36,8 +47,12 @@ export interface ISiteResponse extends IApiResponse {
 export interface ISiteOptionsResponse extends IApiResponse {
   results: INetlifyOptions
 }
-export interface ISiteCollectionResponse extends IApiResponse {
+export interface ISiteCollectionsResponse extends IApiResponse {
   results: INetlifyCmsCollection[]
+}
+
+export interface ISiteCollectionResponse extends IApiResponse {
+  results: INetlifyCmsCollection
 }
 
 type PublishMode = 'simple' | 'editorial_workflow'
@@ -113,7 +128,7 @@ export interface INetlifyCmsCollection {
   frontmatter_delimiter?: string | string[]
   slug?: string
   preview_path?: string
-  fields: INetlifyCmsField[]
+  fields?: INetlifyCmsField[]
   editor?: boolean
   summary?: string
 }

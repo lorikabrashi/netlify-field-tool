@@ -9,6 +9,7 @@ import { closeModal, openModal } from '../../lib/store/slices/modal.slice'
 import { removeSite } from '../../lib/store/slices/sites.slice'
 import { IApiError, ISiteData } from '../../shared/types'
 import DeleteAlert from '../ConfirmAlerts/Delete.alert'
+import { useNotification } from '../Notifications/Notifications'
 
 const NoDataRow: React.FC = () => {
   return (
@@ -27,7 +28,7 @@ interface SiteRowsProps {
 }
 const SitesRows: React.FC<SiteRowsProps> = ({ data }) => {
   const dispatch = useDispatch()
-
+  const notification = useNotification()
   const handleDelete = async (slug: string) => {
     try {
       await api.site.delete({ slug })
@@ -35,7 +36,7 @@ const SitesRows: React.FC<SiteRowsProps> = ({ data }) => {
       dispatch(closeModal())
     } catch (err: unknown) {
       const errorResponse = (err as AxiosError).response?.data as IApiError
-      console.error(errorResponse)
+      notification.error(errorResponse.message)
     }
   }
 
@@ -54,7 +55,7 @@ const SitesRows: React.FC<SiteRowsProps> = ({ data }) => {
         <tr key={i}>
           <td>{++i}</td>
           <td>
-            <Link to={`/site-overview/${elem.slug}`}>{elem.name}</Link>
+            <Link to={`/site/${elem.slug}`}>{elem.name}</Link>
           </td>
           <td>
             <Button size="sm" onClick={() => confirmDelete(elem.slug, elem.name)} variant={'danger'}>

@@ -3,10 +3,10 @@ import { FormEvent, useState } from 'react'
 import { Alert, Button, Col, Container, Form, Row } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { api } from '../../../lib/api/v1'
-import { RootState } from '../../../lib/store'
-import { addSite } from '../../../lib/store/slices/sites.slice'
-import { IApiError, ISiteData } from '../../../shared/types'
+import { api } from '../../lib/api/v1'
+import { RootState } from '../../lib/store'
+import { addSite } from '../../lib/store/slices/sites.slice'
+import { IApiError, ISiteData } from '../../shared/types'
 
 interface Props {
   onComplete: () => void
@@ -52,7 +52,7 @@ const NewSite: React.FC<Props> = ({ onComplete }) => {
     try {
       await api.site.create(siteData)
       dispatch(addSite(siteData))
-      navigate(`/site-overview/${slug}`)
+      navigate(`/site/${slug}`)
       onComplete()
     } catch (err: unknown) {
       const errorResponse = (err as AxiosError).response?.data as IApiError

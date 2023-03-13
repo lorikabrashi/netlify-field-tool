@@ -5,9 +5,11 @@ import { INetlifyCmsCollection, INetlifyCmsConfig, INetlifyOptions } from '../..
 
 export class FileSystemService {
   private DATA_PATH: string
+  private ENCODING: BufferEncoding
 
   constructor() {
     this.DATA_PATH = path.resolve(`${__dirname}/../../../data/`)
+    this.ENCODING = 'utf8'
   }
 
   async readNetlifyCmsConfigFile(path: string) {
@@ -18,15 +20,21 @@ export class FileSystemService {
   }
 
   getOptions(slug: string) {
-    const data = fs.readFileSync(`${this.DATA_PATH}/${slug}/options.json`, 'utf8')
+    const data = fs.readFileSync(`${this.DATA_PATH}/${slug}/options.json`, this.ENCODING)
     return JSON.parse(data) as INetlifyOptions
+  }
+
+  getCollection(slug: string, collection: string) {
+    const path = `${this.DATA_PATH}/${slug}/collections/${collection}.json`
+    const data = fs.readFileSync(path, this.ENCODING)
+    return JSON.parse(data)
   }
 
   getCollections(slug: string) {
     const dir = fs.readdirSync(`${this.DATA_PATH}/${slug}/collections`)
     const collections: INetlifyCmsCollection[] = []
     for (let i = 0; i < dir.length; i++) {
-      const data = fs.readFileSync(`${this.DATA_PATH}/${slug}/collections/${dir[i]}`, 'utf8')
+      const data = fs.readFileSync(`${this.DATA_PATH}/${slug}/collections/${dir[i]}`, this.ENCODING)
       collections.push(JSON.parse(data) as INetlifyCmsCollection)
     }
     return collections

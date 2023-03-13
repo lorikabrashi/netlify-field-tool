@@ -8,6 +8,7 @@ import { closeModal, openModal } from '../../lib/store/slices/modal.slice'
 import { ApiStatus } from '../../shared/constants'
 import { IApiError, INetlifyCmsCollection } from '../../shared/types'
 import DeleteAlert from '../ConfirmAlerts/Delete.alert'
+import NewCollection from '../Forms/NewCollection.form'
 import { useNotification } from '../Notifications/Notifications'
 
 interface Props {
@@ -18,6 +19,7 @@ interface Props {
 
 const ListCollection: React.FC<Props> = ({ collections, refreshCollections, slug }) => {
   const dispatch = useDispatch()
+  const notification = useNotification()
 
   const handleDelete = async (name: string) => {
     try {
@@ -28,7 +30,7 @@ const ListCollection: React.FC<Props> = ({ collections, refreshCollections, slug
       dispatch(closeModal())
     } catch (err: unknown) {
       const errorResponse = (err as AxiosError).response?.data as IApiError
-      console.error(errorResponse)
+      notification.error(errorResponse.message)
     }
   }
 
@@ -58,7 +60,7 @@ const ListCollection: React.FC<Props> = ({ collections, refreshCollections, slug
                 </div>
               </div>
               <div className="actions">
-                <Card.Link href="#">
+                <Card.Link href={`/site/${slug}/collection/${collection.name}`}>
                   <b>Edit</b>
                 </Card.Link>
                 <Button
@@ -82,6 +84,7 @@ const CollectionsCard: React.FC = () => {
   const [collections, setCollections] = useState<INetlifyCmsCollection[]>([])
   const { slug } = useParams()
   const notification = useNotification()
+  const dispatch = useDispatch()
 
   const getCollections = async (slug: string) => {
     try {
@@ -89,7 +92,7 @@ const CollectionsCard: React.FC = () => {
       setCollections(response.results)
     } catch (err: unknown) {
       const errorResponse = (err as AxiosError).response?.data as IApiError
-      console.error(errorResponse)
+      notification.error(errorResponse.message)
     }
   }
 
@@ -97,7 +100,27 @@ const CollectionsCard: React.FC = () => {
     if (slug) {
       getCollections(slug)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [slug])
+
+  const handleNewCollection = () => {
+    if (!slug) return
+
+    dispatch(
+      openModal({
+        title: 'New Site',
+        content: (
+          <NewCollection
+            slug={slug}
+            onComplete={() => {
+              dispatch(closeModal())
+            }}
+          />
+        ),
+        size: 'modal-xl',
+      })
+    )
+  }
 
   return (
     <Card bg="dark">
@@ -107,43 +130,7 @@ const CollectionsCard: React.FC = () => {
         </Card.Header>
         {slug && <ListCollection collections={collections} refreshCollections={getCollections} slug={slug} />}
         <Card.Footer className="d-flex justify-content-end">
-          <Button
-            variant="primary"
-            size="sm"
-            onClick={() => {
-              setTimeout(() => {
-                notification.info('info')
-              }, 1000)
-
-              setTimeout(() => {
-                notification.dark('dark')
-              }, 2000)
-
-              setTimeout(() => {
-                notification.dark('error')
-              }, 3000)
-
-              setTimeout(() => {
-                notification.light('light')
-              }, 4000)
-
-              setTimeout(() => {
-                notification.primary('primary')
-              }, 5000)
-
-              setTimeout(() => {
-                notification.secondary('secondary')
-              }, 6000)
-
-              setTimeout(() => {
-                notification.success('success')
-              }, 7000)
-
-              setTimeout(() => {
-                notification.warning('warning')
-              }, 8000)
-            }}
-          >
+          <Button variant="primary" size="sm" onClick={handleNewCollection}>
             Add Collection
           </Button>
         </Card.Footer>

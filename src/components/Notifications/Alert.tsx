@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Alert as BootstrapAlert } from 'react-bootstrap'
 import { useDispatch } from 'react-redux'
 import { NotificationId, removeNotification } from '../../lib/store/slices/notifications.slice'
@@ -20,7 +20,6 @@ const Alert: React.FC<Props> = ({ type, message, notificationId }) => {
     }, 5000)
 
     setTimer(timerID)
-    
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 

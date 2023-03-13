@@ -1,4 +1,5 @@
 import Root from '../pages/Root'
+import Collection from '../pages/Single/Collection.page'
 import Overview from '../pages/Single/Overview.page'
 
 const routerData = [
@@ -8,8 +9,13 @@ const routerData = [
   },
   {
     elem: <Overview />,
-    path: '/site-overview/:slug',
+    path: '/site/:slug',
   },
+  {
+    elem: <Collection />,
+    path: '/site/:slug/collection/:collection',
+  },
+  
 ]
 
 export default routerData
