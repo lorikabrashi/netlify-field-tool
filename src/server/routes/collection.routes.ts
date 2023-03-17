@@ -1,7 +1,7 @@
 import { Request, Response, Router } from 'express'
-import { ICreateCollectionData, IDeleteCollectionData, ISingleCollectionData } from '../../shared/types'
+import { ICreateCollectionData, IDeleteCollectionData, ISetCollectionType, ISingleCollectionData } from '../../shared/types'
 import collectionsController from '../controllers/collections.controller'
-import { exceptionHandler } from '../services/exceptionHandler'
+import { exceptionHandler } from '../middleware/exceptionHandler.middleware'
 
 const router = Router()
 
@@ -33,6 +33,14 @@ router.post(
   '/',
   exceptionHandler(async (req: Request<{}, {}, ICreateCollectionData>, res: Response) => {
     const result = collectionsController.createCollection(req.body)
+    res.json(collectionsController.helperService.formatResponse(result))
+  })
+)
+
+router.post(
+  '/set-type',
+  exceptionHandler(async (req: Request<{}, {}, ISetCollectionType>, res: Response) => {
+    const result = collectionsController.setCollectionType(req.body)
     res.json(collectionsController.helperService.formatResponse(result))
   })
 )

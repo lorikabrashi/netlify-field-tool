@@ -16,3 +16,14 @@ export enum AlertTypes {
   LIGHT = 'light',
   DARK = 'dark',
 }
+
+export enum CollectionTypes {
+  NONE = 'None',
+  FIELDS = 'Fields',
+  FILES = 'Files',
+}
+
+
+export enum Descriptions {
+  CHANGE_COLLECTION_TYPE = 'Changing the collection type will delete all previous fields created for this collection.'
+}

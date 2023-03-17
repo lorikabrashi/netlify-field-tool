@@ -6,13 +6,13 @@ import { useParams } from 'react-router-dom'
 import { api } from '../../lib/api/v1'
 import { closeModal, openModal } from '../../lib/store/slices/modal.slice'
 import { ApiStatus } from '../../shared/constants'
-import { IApiError, INetlifyCmsCollection } from '../../shared/types'
+import { IApiError, INetlifyCollection } from '../../shared/types'
 import DeleteAlert from '../ConfirmAlerts/Delete.alert'
 import NewCollection from '../Forms/NewCollection.form'
 import { useNotification } from '../Notifications/Notifications'
 
 interface Props {
-  collections: INetlifyCmsCollection[]
+  collections: INetlifyCollection[]
   slug: string
   refreshCollections: (slug: string) => void
 }
@@ -81,7 +81,7 @@ const ListCollection: React.FC<Props> = ({ collections, refreshCollections, slug
 }
 
 const CollectionsCard: React.FC = () => {
-  const [collections, setCollections] = useState<INetlifyCmsCollection[]>([])
+  const [collections, setCollections] = useState<INetlifyCollection[]>([])
   const { slug } = useParams()
   const notification = useNotification()
   const dispatch = useDispatch()

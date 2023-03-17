@@ -1,4 +1,4 @@
-import { ApiStatus } from './constants'
+import { ApiStatus, CollectionTypes } from './constants'
 
 export interface IApiError {
   statusCode?: number | string
@@ -19,7 +19,11 @@ export interface ISiteData {
   path: string
 }
 
-
+export interface ISetCollectionType {
+  slug: string
+  collection: string
+  type: CollectionTypes
+}
 export interface ISingleCollectionData {
   slug: string
   collection: string
@@ -48,22 +52,48 @@ export interface ISiteOptionsResponse extends IApiResponse {
   results: INetlifyOptions
 }
 export interface ISiteCollectionsResponse extends IApiResponse {
-  results: INetlifyCmsCollection[]
+  results: INetlifyCollection[]
 }
 
 export interface ISiteCollectionResponse extends IApiResponse {
-  results: INetlifyCmsCollection
+  results: INetlifyCollection
 }
 
 type PublishMode = 'simple' | 'editorial_workflow'
 type ExtensionType = 'yml' | 'yaml' | 'toml' | 'json' | 'md' | 'markdown' | 'html'
 type FormatType = 'yml' | 'yaml' | 'toml' | 'json' | 'frontmatter' | 'yaml-frontmatter' | 'toml-frontmatter' | 'json-frontmatter'
-type WidgetType = 'boolean' | 'date' | 'datetime' | 'file' | 'hidden' | 'image' | 'list' | 'map' | 'markdown' | 'number' | 'object' | 'relation' | 'select' | 'string' | 'text' | string
+type WidgetType =
+  | 'boolean'
+  | 'date'
+  | 'datetime'
+  | 'file'
+  | 'hidden'
+  | 'image'
+  | 'list'
+  | 'map'
+  | 'markdown'
+  | 'number'
+  | 'object'
+  | 'relation'
+  | 'select'
+  | 'string'
+  | 'text'
+  | string
 type MapType = 'Point' | 'LineString' | 'Polygon'
-type MarkdownButtonType = 'bold' | 'italic' | 'code' | 'link' | 'heading-one' | 'heading-two' | 'quote' | 'code-block' | 'bulleted-list' | 'numbered-list'
+type MarkdownButtonType =
+  | 'bold'
+  | 'italic'
+  | 'code'
+  | 'link'
+  | 'heading-one'
+  | 'heading-two'
+  | 'quote'
+  | 'code-block'
+  | 'bulleted-list'
+  | 'numbered-list'
 type ValueType = 'int' | 'float'
 
-export interface INetlifyCmsField {
+export interface INetlifyField {
   name: string
   label?: string
   widget: WidgetType
@@ -86,8 +116,8 @@ export interface INetlifyCmsField {
 
   // list | object
   allow_add?: boolean
-  field?: INetlifyCmsField
-  fields?: INetlifyCmsField[] // actually required in case of object
+  field?: INetlifyField
+  fields?: INetlifyField[] // actually required in case of object
 
   // map
   type?: MapType
@@ -112,13 +142,12 @@ export interface INetlifyCmsField {
   options?: string[] | { label: string; value: string }[]
 }
 
-export interface INetlifyCmsCollection {
+export interface INetlifyCollectionOptions {
   name: string
   identifier_field?: string
   label?: string
   label_singular?: string
   description?: string
-  files?: INetlifyFile[]
   folder?: string
   filter?: string
   create?: boolean
@@ -128,19 +157,22 @@ export interface INetlifyCmsCollection {
   frontmatter_delimiter?: string | string[]
   slug?: string
   preview_path?: string
-  fields?: INetlifyCmsField[]
   editor?: boolean
   summary?: string
 }
 
+export interface INetlifyCollection extends INetlifyCollectionOptions {
+  files?: INetlifyFile[]
+  fields?: INetlifyField[]
+}
 export interface INetlifyFile {
   label?: string
   name: string
   file: string
-  fields: INetlifyCmsField[]
+  fields: INetlifyField[]
 }
 
-export interface INetlifyCmsConfig {
+export interface INetlifyConfig {
   backend: {
     name: string
     repo?: string
@@ -173,7 +205,7 @@ export interface INetlifyCmsConfig {
     sanitize_replacement?: string
   }
 
-  collections: INetlifyCmsCollection[]
+  collections: INetlifyCollection[]
 }
 
-export type INetlifyOptions = Omit<INetlifyCmsConfig, 'collections'>
+export type INetlifyOptions = Omit<INetlifyConfig, 'collections'>

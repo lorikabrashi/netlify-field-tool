@@ -7,6 +7,7 @@ import {
   IDeleteCollectionData,
   ICreateCollectionData,
   ISiteCollectionResponse,
+  ISetCollectionType,
 } from '../../shared/types'
 
 export const api = {
@@ -20,5 +21,6 @@ export const api = {
     get: (slug: string): Promise<ISiteCollectionsResponse> => requests.get(`/collections?slug=${slug}`),
     create: (data: ICreateCollectionData): Promise<ISiteResponse> => requests.post(`/collections`, data),
     single: (slug: string, collection: string): Promise<ISiteCollectionResponse> => requests.get(`/collections/${slug}/${collection}`),
+    setType: (data: ISetCollectionType): Promise<ISiteResponse> => requests.post('/collections/set-type', data),
   },
 }

@@ -3,25 +3,29 @@ import { AlertTypes } from '../../shared/constants'
 
 interface Props {
   element: string
+  description?: string
   onConfirm: () => void
   onCancel: () => void
 }
 
-const DeleteAlert: React.FC<Props> = ({ element, onConfirm, onCancel }) => {
+const ChangeAlert: React.FC<Props> = ({ element, description, onConfirm, onCancel }) => {
   return (
     <Container>
       <Row>
         <Col>
-          <p>Are you sure you want to delete {element}?</p>
+          {description}
+          <p>Are you sure you want to change {element}?</p>
         </Col>
       </Row>
       <Row>
         <Col>
           <div className="float-end">
             <Button variant={AlertTypes.PRIMARY} onClick={onCancel} className="m-3">
-              Cancel
+              No
             </Button>
-            <Button variant={AlertTypes.ERROR} onClick={onConfirm}>Confirm</Button>
+            <Button variant={AlertTypes.PRIMARY} onClick={onConfirm}>
+              Yes
+            </Button>
           </div>
         </Col>
       </Row>
@@ -29,4 +33,4 @@ const DeleteAlert: React.FC<Props> = ({ element, onConfirm, onCancel }) => {
   )
 }
 
-export default DeleteAlert
+export default ChangeAlert

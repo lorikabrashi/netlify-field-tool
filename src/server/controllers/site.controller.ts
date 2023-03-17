@@ -13,9 +13,9 @@ export class SiteController {
 
   async createSite(siteData: ISiteData) {
     this.fileSystemService.createDataStructureForSite(siteData.slug)
-    const netlifyCmsConfigData = await this.fileSystemService.readNetlifyCmsConfigFile(siteData.path)
+    const netlifyConfigData = await this.fileSystemService.readNetlifyConfigFile(siteData.path)
 
-    const { collections, ...options } = netlifyCmsConfigData
+    const { collections, ...options } = netlifyConfigData
 
     collections.forEach((elem) => {
       this.fileSystemService.writeJsonCollection(elem, siteData.slug, elem.name)
